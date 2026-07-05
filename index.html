@@ -1,45 +1,90 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Innovators 2.0 - Secure Login</title>
+    <title>Innovators 2.o - Security Gateway Node</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="login-page-wrapper">
-        
-        <canvas id="login-fire-canvas"></canvas>
-        
-        <div class="fire-overlay-glow"></div>
+    <div id="toast-container" class="toast-container"></div>
 
-        <div class="login-card animate-fade-in">
+    <div class="login-page-wrapper">
+        <canvas id="login-fire-canvas"></canvas>
+        <div class="fire-overlay-glow"></div>
+        
+        <div class="glass-card login-card animate-fade-in">
             <div class="login-header">
                 <div class="company-logo-badge">🔥</div>
-                <h1 class="brand-title">INNOVATORS 2.O</h1>
-                <p class="brand-tagline">PRESTIGE ARCHITECTURE GATEWAY</p>
+                <h1 class="brand-title">Innovators 2.o</h1>
+                <p class="brand-tagline">Secure Profile Registry Matrix</p>
+            </div>
+            
+            <div id="login-panel">
+                <form id="login-form" class="auth-form">
+                    <div class="form-group">
+                        <label>Corporate Email / Username</label>
+                        <input type="text" id="login-email" placeholder="balaji@innovators.com or worker email" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Security Password</label>
+                        <input type="password" id="login-password" placeholder="••••••••" required autocomplete="off">
+                    </div>
+                    <button type="submit" class="primary-btn full-width fire-button">Authenticate Node</button>
+                </form>
+                <p class="panel-switch-text">
+                    New to the network? <a href="#" id="go-to-register">Register Account</a>
+                </p>
             </div>
 
-            <form class="auth-form" onsubmit="event.preventDefault();">
-                <div class="form-group">
-                    <label for="login-email">Identity Matrix (Email)</label>
-                    <input type="email" id="login-email" placeholder="name@company.com" required>
-                </div>
+            <div id="register-panel" class="hidden">
+                <form id="register-form" class="auth-form">
+                    <div class="form-group">
+                        <label>Full Legal Name</label>
+                        <input type="text" id="reg-name" placeholder="Arun Kumar S" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Corporate Email</label>
+                        <input type="email" id="reg-email" placeholder="username@innovators.com" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Create Security Password</label>
+                        <input type="password" id="reg-password" placeholder="••••••••" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>Department Core Hub</label>
+                        <input type="text" id="reg-dept" placeholder="Full Stack Core" required autocomplete="off">
+                    </div>
+                    <button type="submit" class="primary-btn full-width register-fire-button">Create Operational Registry Node</button>
+                </form>
+                <p class="panel-switch-text">
+                    Already verified? <a href="#" id="go-to-login">Back to Login Gateway</a>
+                </p>
+            </div>
 
-                <div class="form-group">
-                    <label for="login-password">Access Passphrase</label>
-                    <input type="password" id="login-password" placeholder="••••••••" required>
-                </div>
-
-                <button type="submit" class="primary-btn fire-button">Initialize Authentication</button>
-            </form>
-
-            <p class="panel-switch-text">
-                Unauthorized terminal? <a href="#">Request Credentials</a>
-            </p>
+            <div class="oauth-divider"><span>Enterprise Single Sign-On</span></div>
+            <button type="button" id="btn-google-login" class="google-btn">Continue with Google Workspace</button>
         </div>
     </div>
 
+    <div id="google-modal-portal" class="modal-backdrop hidden">
+        <div class="glass-card modal-window animate-fade-in">
+            <h3 style="color: #FFF; margin-bottom: 0.5rem;">Google Workspace IAM Gateway</h3>
+            <p style="margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 0.85rem; line-height: 1.4;">
+                Enter any Google account email. Logging in with <strong>balaji@innovators.com</strong> grants Head access instantly. Any other email instantly provisions a Worker slot.
+            </p>
+            <form id="google-sso-dynamic-form">
+                <div class="form-group">
+                    <label>Google Mail Address</label>
+                    <input type="email" id="google-sso-email" placeholder="name@yourdomain.com" required autocomplete="off">
+                </div>
+                <button type="submit" class="primary-btn full-width fire-button" style="margin-top: 0.5rem;">Authorize Google Identity</button>
+                <button type="button" class="secondary-btn full-width" id="close-google-modal" style="margin-top: 0.75rem;">Abort Connection</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/app.js"></script>
 </body>
 </html>
