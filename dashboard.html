@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovators 2.o - Main Command Engine</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <div id="toast-container" class="toast-container"></div>
+
+    <div class="dashboard-root-container">
+        <aside class="sidebar-wrapper">
+            <div class="sidebar-brand">
+                <span class="logo-icon">🚀</span>
+                <div class="brand-meta">
+                    <h3>Innovators 2.o</h3>
+                    <p class="gold-text">System Network</p>
+                </div>
+            </div>
+            <nav class="sidebar-nav" id="sidebar-menu-items">
+                <a href="#" class="nav-item-link active" data-frameview="home">🏢 Operational Dashboard</a>
+                <a href="#" class="nav-item-link" data-frameview="profile">👤 Profile Data Ledger</a>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-quick-profile">
+                    <div class="avatar-small" id="sb-user-avatar">?</div>
+                    <div class="meta">
+                        <h4 id="sb-user-name">Loading...</h4>
+                        <p id="sb-user-role" class="gold-text">Syncing...</p>
+                    </div>
+                </div>
+                <button class="logout-trigger" id="sidebar-btn-logout">Disconnect Node</button>
+            </div>
+        </aside>
+
+        <main class="main-content-window">
+            <header class="top-nav-bar">
+                <div class="nav-left-controls">
+                    <h2 id="current-page-title">Workspace Frame</h2>
+                </div>
+                <div class="nav-right-controls">
+                    <div class="live-clock-widget" id="portal-live-clock">00:00:00</div>
+                </div>
+            </header>
+
+            <div id="system-dispatch-feed" class="dispatch-banner hidden"></div>
+            <div id="dashboard-content-frame" class="dashboard-viewport-scroll"></div>
+        </main>
+    </div>
+
+    <template id="view-admin-home">
+        <div class="view-padding animate-fade-in">
+            <div class="welcome-banner-hero admin-gradient">
+                <h1>Welcome Back, Director Balaji</h1>
+                <p>Root Access Level Activated. Supervise system accounts, read detailed worker profiles, track attachments, and send broadcasts.</p>
+            </div>
+
+            <div class="glass-card dynamic-gap" style="border-color: var(--gold-accent);">
+                <h3 class="gold-text" style="margin-bottom: 1rem;">📢 Global Operations Broadcast Transmitter</h3>
+                <div class="dispatch-form-layout">
+                    <div class="form-group" style="margin-bottom: 0;">
+                        <label>Target Sub-Array</label>
+                        <select id="adm-dispatch-target">
+                            <option value="ALL">All Active Workers & Staff</option>
+                            <option value="Worker">Workers Network Only</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 2; margin-bottom: 0;">
+                        <label>Message payload string</label>
+                        <input type="text" id="adm-dispatch-msg" placeholder="Type transmission text broadcast to workers dashboards...">
+                    </div>
+                    <button type="button" class="primary-btn" id="btn-adm-dispatch-send" style="height: 42px; padding: 0 1.5rem;">Transmit Message</button>
+                </div>
+            </div>
+
+            <div class="glass-card dynamic-gap">
+                <h3 style="margin-bottom: 1rem; color: #4FA1FF;">👤 Ingest New Worker Node Profile</h3>
+                <form id="admin-add-user-form" class="grid-form">
+                    <div class="form-group">
+                        <label>Classification Group</label>
+                        <select id="adm-reg-role" required>
+                            <option value="Worker">Field Worker / Specialist</option>
+                            <option value="Admin">Operations Admin</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Full Legal Name</label>
+                        <input type="text" id="adm-reg-name" required placeholder="Arun Kumar S">
+                    </div>
+                    <div class="form-group">
+                        <label>Official System Email</label>
+                        <input type="text" id="adm-reg-email" required placeholder="username@innovators.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Access Password</label>
+                        <input type="password" id="adm-reg-password" required value="user123">
+                    </div>
+                    <div class="form-group">
+                        <label>Designation Role</label>
+                        <input type="text" id="adm-reg-designation" placeholder="Software Engineer">
+                    </div>
+                    <div class="form-group">
+                        <label>Department Core Hub</label>
+                        <input type="text" id="adm-reg-dept" placeholder="Full Stack Core">
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Group Type</label>
+                        <input type="text" id="adm-reg-blood" placeholder="B+">
+                    </div>
+                    <div class="form-group">
+                        <label>PAN Registry Code</label>
+                        <input type="text" id="adm-reg-pan" placeholder="ABCPK1234D">
+                    </div>
+                    <button type="submit" class="primary-btn full-width" style="margin-top: 0.5rem;">Force Archive Into Master Registry</button>
+                </form>
+            </div>
+
+            <div class="glass-card control-table-wrapper">
+                <div class="table-header-toolbar">
+                    <h3>Innovators 2.o Master Registry Index</h3>
+                    <input type="text" id="admin-search-input" placeholder="Query names, tracking tokens, departments, or blood groups...">
+                </div>
+                <div class="table-scroll-container">
+                    <table class="data-table-premium">
+                        <thead>
+                            <tr>
+                                <th>Photo / ID Reference</th>
+                                <th>Employee / Worker Base Bio-Data</th>
+                                <th>Statutory Compliance Codes</th>
+                                <th>Leave Balances</th>
+                                <th>Document Vault Files</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="admin-table-body-injector"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </template>
+
+    <template id="view-profile">
+        <div class="view-padding animate-fade-in">
+            <div class="glass-card profile-master-card">
+                <form id="profile-editable-form">
+                    <div class="profile-layout-header">
+                        <div class="avatar-large-preview" id="profile-avatar-render">U</div>
+                        <div class="header-text-block">
+                            <h2 id="profile-display-fullname">Loading Profile Matrix...</h2>
+                            <p class="badge-role gold-text" id="profile-display-role">Querying Identity Registry...</p>
+                            <p style="font-size: 0.85rem; margin-top:0.25rem; color: var(--text-secondary);" id="profile-display-meta-title"></p>
+                        </div>
+                    </div>
+
+                    <div class="grid-form">
+                        <div class="form-section-divider full-width"><span>I. Structural Assignments</span></div>
+                        <div class="form-group"><label>Display Legal Name</label><input type="text" id="prof-name" required></div>
+                        <div class="form-group"><label>Designation Role Title</label><input type="text" id="prof-designation"></div>
+                        <div class="form-group"><label>Core Department Hub</label><input type="text" id="prof-dept"></div>
+                        <div class="form-group"><label>Base Location Hub</label><input type="text" id="prof-location"></div>
+
+                        <div class="form-section-divider full-width"><span>II. Health Metrics & Personal Coordinates</span></div>
+                        <div class="form-group"><label>Mobile Secure Line</label><input type="text" id="prof-mobile" required></div>
+                        <div class="form-group"><label>Backup Contact Email</label><input type="email" id="prof-personal-email"></div>
+                        <div class="form-group"><label>Blood Group Type</label><input type="text" id="prof-blood"></div>
+                        <div class="form-group"><label>Emergency Metrics Coordinate</label><input type="text" id="prof-emergency"></div>
+                        <div class="form-group full-width"><label>Full Bio Summary Focus Data</label><textarea id="prof-bio" rows="2"></textarea></div>
+
+                        <div class="form-section-divider full-width"><span>III. Professional Qualifications Ledger</span></div>
+                        <div class="form-group full-width"><label>Paste CV Overview Profile Text Here</label><textarea id="prof-cv-text" rows="3"></textarea></div>
+                        <div class="form-group"><label>GitHub Profile Link</label><input type="text" id="prof-github"></div>
+                        <div class="form-group"><label>LinkedIn Vector Connection</label><input type="text" id="prof-linkedin"></div>
+
+                        <div class="form-section-divider full-width"><span>IV. Statutory Files Vault & Compliance Records</span></div>
+                        <div class="form-group"><label>Permanent Account Number (PAN)</label><input type="text" id="prof-pan"></div>
+                        <div class="form-group"><label>Provident Fund Reference ID</label><input type="text" id="prof-pf"></div>
+                        <div class="form-group"><label>Bank Clearing Institution Name</label><input type="text" id="prof-bank-name"></div>
+                        <div class="form-group"><label>Bank Account String</label><input type="text" id="prof-bank-acc"></div>
+                        <div class="form-group full-width">
+                            <label>Active Profile Passport size Photo Upload / Attached Documents</label>
+                            <input type="file" id="prof-cert-file" accept="image/*">
+                            <div class="certificate-display-render-frame dynamic-gap" id="prof-cert-image-viewport"></div>
+                        </div>
+                    </div>
+
+                    <button type="button" class="primary-btn dynamic-gap" id="btn-profile-save-changes">Commit Portfolio Updates</button>
+                </form>
+            </div>
+        </div>
+    </template>
+
+    <script src="js/app.js"></script>
+</body>
+</html>
