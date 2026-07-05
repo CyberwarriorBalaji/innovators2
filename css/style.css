@@ -46,7 +46,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Forces the login card to stay perfectly centered */
     background: #000;
     overflow: hidden;
 }
@@ -59,7 +59,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh !important;
     pointer-events: none;
     mix-blend-mode: screen;
-    z-index: 1;
+    z-index: 1; /* Drops it safely to the background layer */
 }
 
 .fire-overlay-glow {
@@ -84,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(234, 88, 12, 0.1);
-    z-index: 10;
+    z-index: 10; /* Ensures login content renders over the particle layers */
 }
 
 .login-header { 
@@ -157,7 +157,6 @@ h1, h2, h3, h4, h5, h6 {
     box-shadow: 0 0 10px rgba(234, 88, 12, 0.4); 
 }
 
-/* Placeholder visibility fix */
 ::placeholder {
     color: #71717A;
     opacity: 1;
@@ -168,6 +167,7 @@ h1, h2, h3, h4, h5, h6 {
    ========================================================================== */
 
 .primary-btn { 
+    width: 100%;
     background: var(--primary-color); 
     color: #FFFFFF; 
     border: none; 
@@ -210,51 +210,6 @@ h1, h2, h3, h4, h5, h6 {
 .secondary-btn:hover { 
     background: rgba(255, 255, 255, 0.12); 
     border-color: var(--primary-color);
-}
-
-.google-btn { 
-    width: 100%; 
-    padding: 0.8rem; 
-    background: #FFFFFF; 
-    color: #111827; 
-    border: none; 
-    border-radius: 6px; 
-    font-weight: 700; 
-    cursor: pointer; 
-    margin-top: 1rem; 
-    transition: background 0.2s, box-shadow 0.2s; 
-}
-
-.google-btn:hover { 
-    background: #F4F4F5; 
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-}
-
-.oauth-divider { 
-    text-align: center; 
-    margin: 1.75rem 0; 
-    position: relative; 
-}
-
-.oauth-divider::before {
-    content: "";
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: rgba(249, 115, 22, 0.2);
-    z-index: 1;
-}
-
-.oauth-divider span { 
-    position: relative;
-    background: #18110B; 
-    padding: 0 0.85rem; 
-    color: var(--text-secondary); 
-    font-size: 0.8rem; 
-    font-weight: 600;
-    z-index: 2;
 }
 
 .panel-switch-text { 
