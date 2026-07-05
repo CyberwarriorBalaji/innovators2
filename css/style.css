@@ -3,16 +3,15 @@
    ========================================================================== */
 
 :root {
-    /* Enhanced contrast backgrounds to separate cards from the deep black canvas */
     --bg-primary: #050403;
     --bg-secondary: #18110B; 
     --bg-glass: rgba(28, 20, 14, 0.9);
-    --border-glass: rgba(249, 115, 22, 0.4); /* Made borders brighter for structural definition */
+    --border-glass: rgba(249, 115, 22, 0.4); 
     --primary-color: #EA580C;
     --primary-hover: #FF6B1A;
-    --gold-accent: #FBBF24; /* Elevated gold brightness */
-    --text-main: #FFFFFF;   /* Pure white text base */
-    --text-secondary: #D4D4D8; /* Light gray text for high visibility subtitles */
+    --gold-accent: #FBBF24; 
+    --text-main: #FFFFFF;   
+    --text-secondary: #D4D4D8; 
 }
 
 * { 
@@ -29,7 +28,6 @@ body {
     height: 100vh; 
 }
 
-/* Global Heading Normalization - Forces all topics to stand out in bright white */
 h1, h2, h3, h4, h5, h6 {
     color: #FFFFFF !important;
     font-weight: 700;
@@ -46,7 +44,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center; /* Forces the login card to stay perfectly centered */
+    justify-content: center;
     background: #000;
     overflow: hidden;
 }
@@ -59,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh !important;
     pointer-events: none;
     mix-blend-mode: screen;
-    z-index: 1; /* Drops it safely to the background layer */
+    z-index: 1;
 }
 
 .fire-overlay-glow {
@@ -84,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     box-shadow: 0 25px 60px rgba(0, 0, 0, 0.95), 0 0 30px rgba(234, 88, 12, 0.1);
-    z-index: 10; /* Ensures login content renders over the particle layers */
+    z-index: 10;
 }
 
 .login-header { 
