@@ -1,6 +1,6 @@
 /**
  * ==========================================================================
- * INNOVATORS 2.O - CENTRAL ROUTER SECURITY MATRIX ENGINE
+ * INNOVATORS 2.O - CENTRAL ROUTER SECURITY MATRIX ENGINE WITH LIVE FIRE MATRIX
  * ==========================================================================
  */
 
@@ -25,11 +25,11 @@
                 DB_CONFIG.ROOT_ADMIN,
                 {
                     empId: "INV-4021", name: "Arun Kumar S", email: "worker", password: "worker", role: "Worker",
-                    designation: "Software Engineer", department: "Full Stack Development", mobile: "+91 9876543210",
+                    designation: "Software Engineer", department: "Full Stack Core", mobile: "+91 9876543210",
                     personalEmail: "arunkumar@gmail.com", location: "Chennai, Tamil Nadu", bloodGroup: "B+",
                     panNumber: "ABCPK1234D", pfNumber: "PF123456789", bankName: "State Bank of India", bankAccount: "XXXX4567",
                     emergencyContact: "Suresh Kumar (Father) - +91 9876543200", bio: "Passionate developer focused on building interactive web interfaces.",
-                    cvText: "Experience: Fresher | Skills: Java, JavaScript, React, Node.js, LocalStorage Matrix Tracking Framework",
+                    cvText: "Experience: Fresher | Skills: Java, JavaScript, React, Node.js",
                     github: "https://github.com", linkedin: "https://linkedin.com", certificate: "", leaves: { casual: 12, sick: 10, earned: 15 }
                 }
             ];
@@ -54,6 +54,7 @@
         enforceRegistrySanityCheck();
 
         if (document.getElementById('login-form')) {
+            runFireCanvasSimulation();
             setupLoginComponentDrivers();
         } else if (document.getElementById('dashboard-content-frame')) {
             const sessionData = JSON.parse(localStorage.getItem(DB_CONFIG.KEYS.SESSION_NODE));
@@ -65,12 +66,92 @@
         }
     });
 
+    // ==================== FIRE PARTICLE ENGINE MATRIX ====================
+    function runFireCanvasSimulation() {
+        const canvas = document.getElementById('login-fire-canvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const particles = [];
+        class FireParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = canvas.height + Math.random() * 200;
+                this.speedY = Math.random() * 3 + 1;
+                this.radius = Math.random() * 40 + 10;
+                this.opacity = 1;
+                this.colorValue = Math.random(); 
+            }
+            update() {
+                this.y -= this.speedY;
+                this.radius *= 0.98;
+                this.opacity -= 0.006;
+                if (this.x > canvas.width || this.radius < 1 || this.opacity <= 0) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = canvas.height + Math.random() * 50;
+                    this.speedY = Math.random() * 3 + 1;
+                    this.radius = Math.random() * 40 + 10;
+                    this.opacity = 1;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                let r = 239, g = 115, b = 22; // Orange
+                if (this.colorValue > 0.6) { r = 239; g = 68; b = 68; } // Red
+                else if (this.colorValue < 0.2) { r = 245; g = 158; b = 11; } // Yellow
+                ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${this.opacity * 0.25})`;
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 70; i++) {
+            particles.push(new FireParticle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+    }
+
     function setupLoginComponentDrivers() {
-        const form = document.getElementById('login-form');
+        const formLogin = document.getElementById('login-form');
+        const formRegister = document.getElementById('register-form');
         const btnGoogle = document.getElementById('btn-google-login');
         const googlePortal = document.getElementById('google-modal-portal');
+        const googleSsoForm = document.getElementById('google-sso-dynamic-form');
+        
+        const loginPanel = document.getElementById('login-panel');
+        const registerPanel = document.getElementById('register-panel');
 
-        form.addEventListener('submit', (e) => {
+        // FIXED VIEW SWITCHERS
+        document.getElementById('go-to-register').addEventListener('click', (e) => {
+            e.preventDefault();
+            loginPanel.classList.add('hidden');
+            registerPanel.classList.remove('hidden');
+        });
+
+        document.getElementById('go-to-login').addEventListener('click', (e) => {
+            e.preventDefault();
+            registerPanel.classList.add('hidden');
+            loginPanel.classList.remove('hidden');
+        });
+
+        // MANUAL AUTH
+        formLogin.addEventListener('submit', (e) => {
             e.preventDefault();
             const inputUser = document.getElementById('login-email').value.trim();
             const inputPass = document.getElementById('login-password').value;
@@ -86,20 +167,76 @@
             }
         });
 
+        // MANUAL MANIFEST REGISTER
+        formRegister.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value.trim().toLowerCase();
+            const password = document.getElementById('reg-password').value;
+            const department = document.getElementById('reg-dept').value;
+
+            const database = JSON.parse(localStorage.getItem(DB_CONFIG.KEYS.USERS_REGISTRY)) || [];
+            
+            if (database.some(u => u.email === email)) {
+                createNotificationToast('This email registration endpoint already exists.', 'error');
+                return;
+            }
+
+            const newWorker = {
+                empId: 'INV-' + Math.floor(1000 + Math.random() * 9000),
+                name: name, email: email, password: password, role: "Worker",
+                designation: "Associate Member", department: department, mobile: "+91 ",
+                personalEmail: "", location: "Field Office Hub", bloodGroup: "O+", panNumber: "",
+                pfNumber: 'PF' + Math.floor(1000000 + Math.random() * 9000000),
+                bankName: "", bankAccount: "", emergencyContact: "", bio: "", cvText: "",
+                github: "", linkedin: "", certificate: "", leaves: { casual: 12, sick: 10, earned: 15 }
+            };
+
+            database.push(newWorker);
+            localStorage.setItem(DB_CONFIG.KEYS.USERS_REGISTRY, JSON.stringify(database));
+            createNotificationToast('Registration matrix completed! Access permitted.');
+            
+            formRegister.reset();
+            registerPanel.classList.add('hidden');
+            loginPanel.classList.remove('hidden');
+        });
+
+        // DYNAMIC GOOGLE WORKSPACE BYPASS ROUTER ENGINE
         btnGoogle.addEventListener('click', () => googlePortal.classList.remove('hidden'));
         document.getElementById('close-google-modal').addEventListener('click', () => googlePortal.classList.add('hidden'));
 
-        googlePortal.addEventListener('click', (e) => {
-            const buttonNode = e.target.closest('.google-profile-option');
-            if (!buttonNode) return;
-            const targetUserKey = buttonNode.dataset.targetEmail;
-            const contextDatabase = JSON.parse(localStorage.getItem(DB_CONFIG.KEYS.USERS_REGISTRY));
-            const targetedMatch = contextDatabase.find(u => u.email === targetUserKey);
+        googleSsoForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const chosenEmail = document.getElementById('google-sso-email').value.trim().toLowerCase();
+            let database = JSON.parse(localStorage.getItem(DB_CONFIG.KEYS.USERS_REGISTRY)) || [];
 
-            if (targetedMatch) {
-                localStorage.setItem(DB_CONFIG.KEYS.SESSION_NODE, JSON.stringify(targetedMatch));
+            // Directly intercept if user requests Head access via email
+            if (chosenEmail === 'balaji@innovators.com') {
+                const headNode = database.find(u => u.email === 'balaji@innovators.com') || DB_CONFIG.ROOT_ADMIN;
+                localStorage.setItem(DB_CONFIG.KEYS.SESSION_NODE, JSON.stringify(headNode));
                 window.location.href = 'dashboard.html';
+                return;
             }
+
+            // Otherwise, see if email exists or auto register on the fly
+            let existingUser = database.find(u => u.email === chosenEmail);
+            if (!existingUser) {
+                const autoName = chosenEmail.split('@')[0].toUpperCase();
+                existingUser = {
+                    empId: 'INV-' + Math.floor(1000 + Math.random() * 9000),
+                    name: autoName, email: chosenEmail, password: "GoogleLinkedSSO1", role: "Worker",
+                    designation: "Google Verified Worker", department: "Google Cloud Node", mobile: "+91 System Linked",
+                    personalEmail: chosenEmail, location: "Remote Core", bloodGroup: "O+", panNumber: "",
+                    pfNumber: 'PF' + Math.floor(1000000 + Math.random() * 9000000),
+                    bankName: "", bankAccount: "", emergencyContact: "", bio: "Profile generated dynamically via Google Cloud Workspace link.",
+                    cvText: "", github: "", linkedin: "", certificate: "", leaves: { casual: 12, sick: 10, earned: 15 }
+                };
+                database.push(existingUser);
+                localStorage.setItem(DB_CONFIG.KEYS.USERS_REGISTRY, JSON.stringify(database));
+            }
+
+            localStorage.setItem(DB_CONFIG.KEYS.SESSION_NODE, JSON.stringify(existingUser));
+            window.location.href = 'dashboard.html';
         });
     }
 
@@ -135,7 +272,7 @@
                 } else {
                     frameViewport.innerHTML = `
                         <div class="view-padding animate-fade-in">
-                            <div class="welcome-banner-hero">
+                            <div class="welcome-banner-hero" style="background: linear-gradient(135deg, #7C2D12, #451A03); border: 1px solid var(--gold-accent);">
                                 <h1>Innovators 2.o Operational Portfolio Desk • Node ${activeSession.empId}</h1>
                                 <p>Welcome back, worker teammate ${activeSession.name}. Review your linked bio-data parameters, check leaves, or patch your CV data parameters.</p>
                             </div>
@@ -147,7 +284,7 @@
                                     <p>Earned Units: <strong>${activeSession.leaves?.earned || 0} Operational Units</strong></p>
                                 </div>
                                 <div class="glass-card">
-                                    <h4 style="color:#4FA1FF;">🔒 Compliance Records State</h4>
+                                    <h4 style="color:#F97316;">🔒 Compliance Records State</h4>
                                     <p style="margin-top:0.75rem;">PAN Card Verification Hash: <code>${activeSession.panNumber || 'Unassigned'}</code></p>
                                     <p>PF Tracking String: <code>${activeSession.pfNumber || 'Unassigned'}</code></p>
                                     <p>Clearing Bank Channel: <strong>${activeSession.bankName || 'Not Linked'}</strong></p>
